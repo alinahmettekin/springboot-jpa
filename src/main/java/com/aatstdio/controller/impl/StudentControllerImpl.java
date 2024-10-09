@@ -7,11 +7,14 @@ import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.aatstdio.controller.IStudentController;
+import com.aatstdio.dto.DtoStudent;
+import com.aatstdio.dto.DtoStudentIU;
 import com.aatstdio.entities.Student;
 import com.aatstdio.services.IStudentService;
 
@@ -24,9 +27,9 @@ public class StudentControllerImpl implements IStudentController {
 
 	@PostMapping(path = "/save")
 	@Override
-	public Student saveStudent(@RequestBody Student student) {
+	public DtoStudent saveStudent(@RequestBody DtoStudentIU dtoStudentIU) {
 
-		return studentService.saveStudent(student);
+		return studentService.saveStudent(dtoStudentIU);
 	}
 
 	@GetMapping(path = "/list")
@@ -46,6 +49,12 @@ public class StudentControllerImpl implements IStudentController {
 	@Override
 	public void deleteStudent(@PathVariable() Integer id) {
 		studentService.deleteStudent(id);
+	}
+
+	@PutMapping(path = "/update/{id}")
+	@Override
+	public Student updateStudent(@PathVariable() Integer id, @RequestBody Student student) {
+		return studentService.updateStudent(id, student);
 	}
 
 }
